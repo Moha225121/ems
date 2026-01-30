@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
-    public function checkOut(Equipment $equipment)
+    public function checkOut(Request $request, Equipment $equipment)
     {
         if ($equipment->status === 'checked_out') {
             return back()->withErrors(
@@ -18,11 +18,15 @@ class TransactionController extends Controller
             );
         }
 
+        $request->validate([
+            'note' => 'nullable|string|max:500',
+        ]);
+
         Transaction::create([
             'equipment_id' => $equipment->id,
             'user_id'      => auth()->id(),
             'action'       => 'check_out',
-            'note'         => null,
+            'note'         => $request->note,
         ]);
 
         $equipment->update([

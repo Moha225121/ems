@@ -83,6 +83,7 @@
                                 @if($item->status === 'available' || $item->status === 'reserved')
                                     <form method="POST" action="{{ route('equipment.checkOut', $item->id) }}" class="inline" x-data @submit.prevent=" if(confirm('{{ app()->getLocale()==='ar' ? 'هل أنت متأكد من الاستلام؟' : 'Confirm check out?' }}')) $el.submit(); ">
                                         @csrf
+                                        <input type="text" name="note" placeholder="{{ app()->getLocale()==='ar' ? 'ملاحظة' : 'Note' }}" class="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs text-white placeholder:text-slate-300/50 mr-1 focus:outline-none focus:border-indigo-500/50">
                                         <button class="pill-btn px-3 py-1 bg-rose-500 text-white font-semibold">{{ __('app.check_out') }}</button>
                                     </form>
                                 @endif
