@@ -97,10 +97,11 @@
                                 <form method="POST" action="{{ route('equipment.destroy', $item->id) }}" class="inline" x-data @submit.prevent=" if(confirm('{{ app()->getLocale()==='ar' ? 'هل أنت متأكد من حذف هذه المعدة؟ لا يمكن التراجع عن هذا الإجراء.' : 'Are you sure you want to delete this equipment? This action cannot be undone.' }}')) $el.submit(); ">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="pill-btn px-3 py-1 bg-white/10 border border-white/10 text-rose-400 hover:bg-rose-500/20 hover:text-rose-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <button class="pill-btn px-3 py-1 bg-white/5 border border-rose-500/30 text-rose-400 hover:bg-rose-500 hover:text-white transition-colors duration-200 flex items-center gap-1 inline-flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                         </svg>
+                                        <span class="text-xs font-semibold">{{ app()->getLocale() === 'ar' ? 'حذف' : 'Delete' }}</span>
                                     </button>
                                 </form>
                             </td>
