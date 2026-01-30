@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('equipment_id')->constrained('equipment')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // admin
+            $table->enum('action', ['check_out','check_in']);
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

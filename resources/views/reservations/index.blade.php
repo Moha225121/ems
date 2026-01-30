@@ -38,56 +38,61 @@
         </div>
 
         <div class="overflow-x-auto">
-            <table class="min-w-full text-sm text-slate-100/90">
-                <thead class="bg-white/5 text-left uppercase text-xs tracking-wide">
-                    <tr class="text-slate-200">
-                        <th class="px-4 py-3 font-semibold">#</th>
-                        <th class="px-4 py-3 font-semibold">{{ app()->getLocale() === 'ar' ? 'المعدة' : 'Equipment' }}</th>
-                        <th class="px-4 py-3 font-semibold">{{ app()->getLocale() === 'ar' ? 'المستخدم' : 'User' }}</th>
-                        <th class="px-4 py-3 font-semibold">{{ app()->getLocale() === 'ar' ? 'الوقت' : 'Date & Time' }}</th>
-                        <th class="px-4 py-3 font-semibold">{{ __('app.status') }}</th>
-                        <th class="px-4 py-3 font-semibold">{{ app()->getLocale() === 'ar' ? 'ملاحظة' : 'Note' }}</th>
-                        <th class="px-4 py-3 text-center font-semibold">{{ app()->getLocale() === 'ar' ? 'إجراء' : 'Action' }}</th>
+            <table class="eems-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>{{ app()->getLocale() === 'ar' ? 'المعدة' : 'Equipment' }}</th>
+                        <th>{{ app()->getLocale() === 'ar' ? 'المستخدم' : 'User' }}</th>
+                        <th>{{ app()->getLocale() === 'ar' ? 'الوقت' : 'Date & Time' }}</th>
+                        <th>{{ __('app.status') }}</th>
+                        <th>{{ app()->getLocale() === 'ar' ? 'ملاحظة' : 'Note' }}</th>
+                        <th class="text-center">{{ app()->getLocale() === 'ar' ? 'إجراء' : 'Action' }}</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-white/5">
+                <tbody>
                     @forelse($reservations as $reservation)
-                        <tr class="hover:bg-white/5 transition">
-                            <td class="px-4 py-3">{{ $reservations->firstItem() + $loop->index }}</td>
-                            <td class="px-4 py-3 font-semibold text-white">
+                        <tr>
+                            <td>{{ $reservations->firstItem() + $loop->index }}</td>
+                            <td class="font-semibold text-indigo-400">
                                 <a href="{{ route('reservations.show', $reservation->id) }}" class="hover:underline">
                                     {{ $reservation->equipment->name ?? '—' }}
                                 </a>
                             </td>
-                            <td class="px-4 py-3">{{ $reservation->user->name ?? '—' }}</td>
-                            <td class="px-4 py-3">
-                                {{ \Illuminate\Support\Carbon::parse($reservation->date.' '.$reservation->time)->format('Y-m-d H:i') }}
+                            <td>{{ $reservation->user->name ?? '—' }}</td>
+                            <td class="text-slate-300">
+                                {{ \Illuminate\Support\Carbon::parse($reservation->date.' '.$reservation->time)->format('d/m/Y H:i') }}
                             </td>
-                            <td class="px-4 py-3">
+                            <td>
                                 @if($reservation->status === 'active')
                                     <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-200 text-xs">✔ {{ app()->getLocale() === 'ar' ? 'نشط' : 'Active' }}</span>
                                 @else
                                     <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-rose-500/15 text-rose-200 text-xs">✖ {{ app()->getLocale() === 'ar' ? 'ملغى' : 'Cancelled' }}</span>
                                 @endif
                             </td>
-                            <td class="px-4 py-3 text-slate-100/80">
+                            <td class="text-slate-400 text-xs italic">
                                 {{ $reservation->note ? \Illuminate\Support\Str::limit($reservation->note, 40) : '—' }}
                             </td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="text-center">
                                 @if($reservation->status === 'active')
                                     <form method="POST" action="{{ route('reservations.cancel', $reservation->id) }}" class="inline" x-data @submit.prevent=" if(confirm('{{ app()->getLocale()==='ar' ? 'إلغاء هذا الحجز؟' : 'Cancel this reservation?' }}')) $el.submit(); ">
                                         @csrf
                                         <button class="pill-btn px-3 py-1 bg-amber-500 text-slate-900 font-semibold">{{ app()->getLocale() === 'ar' ? 'إلغاء' : 'Cancel' }}</button>
                                     </form>
                                 @else
-                                    <span class="text-xs text-slate-300">{{ app()->getLocale() === 'ar' ? 'لا يوجد إجراء' : 'No action' }}</span>
+                                    <span class="text-xs text-slate-400">{{ app()->getLocale() === 'ar' ? 'لا يوجد إجراء' : 'No action' }}</span>
                                 @endif
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center py-6 text-slate-200/70">
-                                {{ app()->getLocale() === 'ar' ? 'لا توجد حجوزات بعد' : 'No reservations yet' }}
+                            <td colspan="7" class="text-center py-12 text-slate-400">
+                                <div class="flex flex-col items-center gap-2 opacity-60">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                    <span>{{ app()->getLocale() === 'ar' ? 'لا توجد حجوزات بعد' : 'No reservations yet' }}</span>
+                                </div>
                             </td>
                         </tr>
                     @endforelse

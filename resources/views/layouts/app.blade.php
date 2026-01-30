@@ -45,6 +45,34 @@
             transform: translateY(-1px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.18);
         }
+        /* Custom Table Styles */
+        .eems-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .eems-table thead th {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem 1rem;
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+        .eems-table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: #e2e8f0;
+        }
+        .eems-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.03);
+            transition: background 150ms ease;
+        }
+        [dir="rtl"] .eems-table thead th {
+            text-align: right;
+        }
     </style>
 
     {{-- Toast Notifications --}}
@@ -91,10 +119,10 @@
 
                 <div class="flex items-center gap-3">
                     <div class="h-10 w-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center text-white font-bold shadow-lg">
-                        {{ strtoupper(substr(config('app.name', 'EMS'), 0, 2)) }}
+                        EEMS
                     </div>
                     <div>
-                        <div class="text-lg font-semibold text-white">{{ config('app.name', 'EMS') }}</div>
+                        <div class="text-lg font-semibold text-white">EEMS</div>
                         <p class="text-xs text-slate-300">Smart equipment lifecycle</p>
                     </div>
                 </div>

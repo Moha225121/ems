@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('equipment', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('type')->nullable();
+            $table->enum('status', ['available','reserved','checked_out'])->default('available');
             $table->timestamps();
         });
     }

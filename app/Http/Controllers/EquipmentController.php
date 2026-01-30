@@ -42,4 +42,17 @@ class EquipmentController extends Controller
             );
     }
 
+    public function destroy(Equipment $equipment)
+    {
+        $equipment->delete();
+
+        return redirect()
+            ->route('equipment.index')
+            ->with(
+                'success',
+                app()->getLocale() === 'ar'
+                    ? 'تم حذف المعدة بنجاح'
+                    : 'Equipment deleted successfully'
+            );
+    }
 }

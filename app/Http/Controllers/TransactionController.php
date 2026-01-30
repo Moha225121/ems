@@ -29,7 +29,13 @@ class TransactionController extends Controller
             'status' => 'checked_out',
         ]);
 
-        return back();
+        return back()->with(
+            'success',
+            app()->getLocale() === 'ar'
+            ? 'تمت العملية بنجاح'
+            : 'Operation completed successfully'
+        );
+
     }
 
     public function checkIn(Request $request, Equipment $equipment)
@@ -49,6 +55,11 @@ class TransactionController extends Controller
             'status' => 'available',
         ]);
 
-        return back();
+        return back()->with(
+            'success',
+            app()->getLocale() === 'ar'
+                ? 'تمت العملية بنجاح'
+                : 'Operation completed successfully'
+        );
     }
 }

@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('equipment_id')->constrained('equipment')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete(); // admin
+            $table->date('date');
+            $table->time('time');
+            $table->text('note')->nullable();
+            $table->enum('status', ['active','cancelled'])->default('active');
             $table->timestamps();
         });
+
     }
 
     /**
