@@ -127,6 +127,19 @@
                     </div>
                 </div>
 
+                <!-- Main Navigation -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="{{ route('dashboard') }}" class="text-sm font-medium transition-colors hover:text-indigo-400 {{ request()->routeIs('dashboard') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-slate-300' }}">
+                        {{ app()->getLocale() === 'ar' ? 'الرئيسية' : 'Dashboard' }}
+                    </a>
+                    <a href="{{ route('equipment.index') }}" class="text-sm font-medium transition-colors hover:text-indigo-400 {{ request()->routeIs('equipment.*') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-slate-300' }}">
+                        {{ __('app.equipment') }}
+                    </a>
+                    <a href="{{ route('reports.usageForm') }}" class="text-sm font-medium transition-colors hover:text-indigo-400 {{ request()->routeIs('reports.*') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-slate-300' }}">
+                        {{ __('app.reports') }}
+                    </a>
+                </div>
+
                 <div class="flex items-center gap-3 text-sm">
                     <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-2 py-1">
                         <a href="/lang/en" class="px-3 py-1 pill-btn {{ app()->getLocale() === 'en' ? 'bg-white text-slate-900' : 'text-slate-100 hover:bg-white/10' }}">EN</a>
